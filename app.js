@@ -7,6 +7,7 @@ document.getElementById("search-field").addEventListener("keypress", function(ev
 const searchSongs = async () => {
     const searchText = document.getElementById("search-field").value;
     const url = ` https://api.lyrics.ovh/suggest/${searchText}`
+    toggleSpinner();
     try{
     const res = await fetch(url);
     const data = await res.json();
@@ -36,6 +37,7 @@ const displaySongs = songs => {
         </div>
         `;
         songContainer.appendChild(songDiv);
+        toggleSpinner();
     })
 }
 
@@ -59,4 +61,9 @@ const displayLyrics = lyrics => {
 const displayError = error =>{
     const errorTag = document.getElementById("error-massage");
     errorTag.innerText = error;
+}
+
+const toggleSpinner = () => {
+    const spinner = document.getElementById("loading-spinner");
+    spinner.classList.toggle('d-none');
 }
